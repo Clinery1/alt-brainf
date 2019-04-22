@@ -1,0 +1,55 @@
+// This file is an example of the alternate brainf language. The result of this program is: "Hello, World!" and a line ending.
+/*
+
+The '+' operator increments the current cell by one
+The '-' operator decrements the current cell by one
+The '>' operator increments the cell pointer or "cursor" by one
+The '<' operator decrements the cursor by one
+The '[' operator signifies the start of a loop. The parser will fail if there isn't a closing operator: ']'
+The '.' operator prints the ascii value of the current cell
+The ',' operator will read ONE AND ONLY ONE character from the standard input. Sadly, I couldn't get the program to read the character before the
+    <Enter> key is pressed
+The '!' operator calls a function. The current cell is the first part of the function ID, the second part is the cell above the cursor, cursor+1
+    which is the second part of the ID. There are 255^2 possible functions. I did this because there may be more than 255 functions in a program
+    and the 8bit number (which is the size of one cell) only holds up to 255.
+The '{' operator tells the parser to parse a function. There CANNOT be functions within functions but there can be function calls within functions.
+    The '#' operator tells the compiler that the preceding code (until the '{' of the function start) should be executed to get the function's ID.
+    The following code will be added to the function's body. The function WILL NOT RUN ON IT"S OWN, it has to be called.
+'//' defines a line comment. It either goes until the end of the line or, in special circumstances, to EOF. These are ignored by the parser.
+'/*' defines the start of a block comment, these throw errors if not properly terminated with the '*/' ending but are ignored by the parser like
+    line comments are.
+
+*/
+
+{ // This symbol declares a function. The parser now knows to start parsing the next section (until the end symbol) as a function.
+    // The ID of the function should always be in the beginning of the function because anything that is before the # gets deleted.
+    +>+<                                        // This determines the ID of the function, this one has an ID of 0,0
+    #                                           // This part tells the interpreter that anything before this '#' character should be executed to obtain the
+                                                // ID of the function.
+                                                // The ID is always determined in a new buffer and that buffer is always destroyed when the ID is obtained.
+    // This is where the body of the function will be.
+    ->-<
+    +++++>+++<[>[>+++++<-]+++<-]>>---.<<        // This prints 'H'
+    +++++[>[>++<-]+++<-]>>-.<<                  // Print 'e'
+    >>+++++++..<<                               // Print 'll'
+    >>+++.<<                                    // Print 'o'
+    [-]>[-]>[-]<<                               // Clear working cells
+    +++++>++<[>[>++++<-]++<-]>>++++.<<          // Print ','
+    ++[>[>---<-]++<-]>>.<<                      // Print ' '
+    [-]>[-]>[-]<<                               // Clear working cells
+    +++++>++++<[>[>++++<-]++++<-]>>+++++++.<<   // Prints 'W'
+    >>+++<+[>++++<-]>+.<<                       // Prints 'o'
+    >>+++.<<                                    // Prints 'r'
+    >>------.<<                                 // Prints 'l'
+    >++++[>--<-]>.<<                            // Prints 'd'
+    [-]>[-]>[-]<<                               // Clears cells 0,1,2
+    ++++>++<[>[>++++<-]++<-]>>+.<<              // Prints '!'
+    [-]>[-]>[-]<<                               // Makes cells 0,1,2 equal to zero
+    +++++[>++<-]>.<                             // Here we make cell 2 equal to 10, the line ending, and print it.
+    // Since functions make a mess of the cells they mess with, it is mandatory to make them clean up their messes so cells 0,1,2 will be cleared
+    [-]>[-]>[-]<<                               // This clears cells 0,1,2. By "Clear" I mean put them at zero.
+    // This concludes the function.
+} // This symbol closes the function so the parser knows to stop parsing as a function.
+
++>+<
+! // This calls the function we just made.

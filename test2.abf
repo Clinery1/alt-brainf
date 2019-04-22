@@ -1,0 +1,16 @@
+{                                       Start function
+    [-]>[-]<                            This sets the ID to 0 0
+    #                                   This tells the interpreter to execute the code above to get the function ID
+                                            which should be in the first two cells of the mini program
+
+    ++++>++++<[>[>+++<-]++++<-]>>.<<    Prints 0
+
+    [-]>[-]>[-]<<                       Clears cells 0 1 2
+
+    +++++[>++<-]>.<                     Prints a newline
+
+    [-]>[-]<                            Every function should always clean up after itself
+
+}                                       Close function
+
+!                                       Call function 0 0 because cells 0 and 1 are both zero

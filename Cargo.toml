@@ -1,0 +1,7 @@
+[package]
+name = "alt-brainf"
+version = "0.1.0"
+authors = ["TheClinery1 <clinery8237@gmail.com>"]
+edition = "2018"
+
+[dependencies]

@@ -1,0 +1,10 @@
++++++>+++++<[>[>+++<-]+++++<-]>>---.+++<<   Print 'H': 72
+[-]>[-]<                                    Clear cells 0 and 1
++++++>+++<[>[>++<-]+++<-]>>.<<              Add 30 to cell 3 so it's now equal to 105 which is 'i'
+[-]>[-]>[-]<<                               Clear cells 0 1 2
++++++[>++<-]>.                              Print a newline:10
+// This should be ignored
+// +-[] <> ,.
+/*
+comment here
+*/
