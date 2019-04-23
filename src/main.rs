@@ -315,6 +315,7 @@ impl Memory {
         let mut err_val = String::new();
         let mut iterations = 0;
         let mut i = 0;
+        self.instruction_ptr=0;
         while i<self.instructions.len() {
             let com = &self.instructions[0];
             match com {
