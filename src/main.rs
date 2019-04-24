@@ -28,9 +28,7 @@ const INFO_IN_EXE_LOG:&str =
     Command:Cursor:Buffer at cursor location
     The other words are just identifiers.
     The printed characters are in the format 'Out: (char)'
-    The read characters are in the format 'Read: (char)'
-
-Instruction count: ";
+    The read characters are in the format 'Read: (char)'";
 
 
 // Eventually add in file operators
@@ -316,6 +314,7 @@ impl Memory {
         let mut iterations = 0;
         let mut i = 0;
         self.instruction_ptr=0;
+        self.execution_log.push_str(&format!("\n\nInstruction count: {}\n",self.instructions.len()));
         while i<self.instructions.len() {
             let com = &self.instructions[0];
             match com {
@@ -374,7 +373,7 @@ impl Memory {
             }
             iterations+=1;
         }
-        self.execution_log.push_str(&format!("\n\nInstruction count: {}",self.instruction));
+        self.execution_log.push_str(&format!("\n\nExecution count: {}\n\n\n",self.instruction));
         Ok(())
     }
     fn change_cell(&mut self,inc:bool) -> String {
@@ -519,9 +518,8 @@ impl Memory {
         log.set_len(0).unwrap();
         log.write(
             format!(
-                "{}{}\n\n{}",
+                "{}\n\n{}",
                 INFO_IN_EXE_LOG,
-                self.instructions.len(),
                 self.execution_log
             ).as_bytes()
         ).unwrap();
@@ -539,6 +537,7 @@ fn main() {
     for arg in args {
         match mem.new_instructions(fs::read_to_string(arg).unwrap()) {
             Ok(mem)=>{
+                mem.instruction = 0;
                 match mem.run() {
                     Ok(())=>{},
                     Err(err)=>{println!("{}",err);break},
@@ -547,5 +546,6 @@ fn main() {
             Err(err)=>{println!("{}",err);break},
         }
     }
+    mem.execution_log.pop(); mem.execution_log.pop(); mem.execution_log.pop();
     mem.write_log();
 }
